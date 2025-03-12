@@ -6,7 +6,7 @@ const LogoutButton = props => {
   const handleLogout = props => {
     const {history} = props
     Cookie.remove('jwt_token')
-    return history.replace('/')
+    return history.replace('/login')
   }
   return <button onClick={() => handleLogout(props)}>Logout</button>
 }

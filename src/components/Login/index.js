@@ -1,6 +1,6 @@
-// Write your JS code here
 import Cookies from 'js-cookie'
 import {Redirect} from 'react-router-dom'
+
 const handleLogin = props => {
   const {history} = props
   Cookies.set(
@@ -10,11 +10,14 @@ const handleLogin = props => {
   )
   history.replace('/')
 }
+
 const Login = props => {
-  const getToken = Cookies.get('token')
+  const getToken = Cookies.get('jwt_token')
+
   if (getToken !== undefined) {
     return <Redirect to="/" />
   }
+
   return (
     <div>
       <h1>Please Login</h1>
@@ -24,4 +27,5 @@ const Login = props => {
     </div>
   )
 }
+
 export default Login
