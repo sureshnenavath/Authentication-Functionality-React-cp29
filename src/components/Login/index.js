@@ -1,14 +1,24 @@
 import Cookies from 'js-cookie'
 import {Redirect} from 'react-router-dom'
 
-const handleLogin = props => {
+const handleLogin = async props => {
   const {history} = props
-  Cookies.set(
-    'jwt_token',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhaHVsIiwiaWF0IjoxNjE5MDk0MjQxfQ.1i6BbQkQvtvpv72lHPNbl2JOZIB03uRcPbchYYCkL9o',
-    {expires: 2},
-  )
-  history.replace('/')
+  const url = 'https://apis.ccbp.in/login'
+  const userDetails = {
+    username: 'rahul',
+    password: 'rahul@2021',
+  }
+  const options = {
+    method: 'POST',
+    body: JSON.stringify(userDetails),
+  }
+  const response = await fetch(url, options)
+  const data = await response.json()
+  if (response.ok) {
+    const jwtToken = data.jwt_token
+    Cookies.set('jwt_token', jwtToken, {expires: 2})
+    history.replace('/')
+  }
 }
 
 const Login = props => {
